@@ -12,7 +12,7 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       authorization: {
         params: {
-          scope: 'read:user'
+          scope: "read:user"
         }
       }
     })
@@ -34,9 +34,11 @@ export default NextAuth({
                       q.Casefold(session.user.email)
                     )
                   )
+                )),
+                q.Match(
+                  q.Index('subscription_by_status'),
+                  'active'
                 )
-              ),
-              q.Match(q.Index('subscription_by_status'), 'active')
             ])
           )
         )
